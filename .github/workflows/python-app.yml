@@ -1,0 +1,35 @@
+name: YNAB Credit Alert
+
+on:
+  schedule:
+    - cron: '0 15 1,11 * *'      # Runs at 00:00 UTC on the 1st and 15th of every month
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.10'
+
+    - name: Run main script
+      run: python main.py
+
+    - name: Send email
+      uses: dawidd6/action-send-mail@v2
+      with:
+        # SMTP server settings
+        server_address: smtp.sendgrid.net
+        server_port: 587
+        username: 'apikey'
+        password: SG.${{secrets.SENDGRID_API_KEY}}
+
+        # Email details
+        subject: file://subject.txt
+        body: file://message.txt
+        to: SG.${{vars.email_address}}
+        from: SG.${{vars.email_address}}
