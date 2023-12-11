@@ -43,4 +43,4 @@ jobs:
         subject: file://subject.txt
         body: file://message.txt
         to: ${{ vars.email_address }}
-        from: ${{ vars.email_address }}
+        from: ${{ vars.FROM_NAME }}
