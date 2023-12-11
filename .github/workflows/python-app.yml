@@ -42,5 +42,5 @@ jobs:
         # Email details
         subject: file://subject.txt
         body: file://message.txt
-        to: SG.${{ vars.email_address }}
-        from: SG.${{ vars.email_address }}
+        to: ${{ vars.email_address }}
+        from: ${{ vars.email_address }}
