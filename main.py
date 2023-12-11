@@ -6,11 +6,10 @@ from ynab import YNABClient
 from utils import setup_environment_vars, combine_names
 
 class ynab_credit_alert():
-    def __init__(self, ynab_personal_access_token, ynab_budget_name, ynab_account_name, cut_off_days) -> None:
+    def __init__(self, ynab_personal_access_token, ynab_budget_name, cut_off_days) -> None:
         self.ynab = YNABClient(ynab_personal_access_token)
 
         self.ynab_budget_id = self.ynab.get_budget_id(ynab_budget_name)
-        self.ynab_account_id = self.ynab.get_account_id(self.ynab_budget_id, ynab_account_name)
 
         # get dates
         today = datetime.now().date()
@@ -77,12 +76,10 @@ if __name__=="__main__":
 
     # ynab creds
     ynab_budget_name = os.environ.get('ynab_budget_name')
-    ynab_account_name = os.environ.get('ynab_account_name')
     ynab_personal_access_token = os.environ.get('ynab_personal_access_token')
     cut_off_days = os.environ.get('cut_off_days')
 
-    a = ynab_credit_alert(ynab_personal_access_token, ynab_budget_name, 
-                          ynab_account_name, cut_off_days)
+    a = ynab_credit_alert(ynab_personal_access_token, ynab_budget_name, cut_off_days)
     subject, message = a.check_accounts()
 
     # write subject and message body to files
