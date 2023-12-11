@@ -37,7 +37,7 @@ jobs:
         server_address: smtp.sendgrid.net
         server_port: 587
         username: 'apikey'
-        password: SG.${{secrets.SENDGRID_API_KEY}}
+        password: ${{secrets.SENDGRID_API_KEY}}
 
         # Email details
         subject: file://subject.txt
