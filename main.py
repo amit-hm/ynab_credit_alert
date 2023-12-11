@@ -13,7 +13,7 @@ class ynab_credit_alert():
 
         # get dates
         today = datetime.now().date()
-        self.cutoff_date = today - timedelta(days=cut_off_days)
+        self.cutoff_date = today - timedelta(days=int(cut_off_days))
 
     def is_payment(self, ynab_account_id):
         transactions = self.ynab.get_transactions(self.ynab_budget_id, ynab_account_id, since_date=self.cutoff_date)
@@ -35,7 +35,7 @@ class ynab_credit_alert():
         due_accounts = []
         credit_accounts = self.get_credit_accounts()
         for account_name in credit_accounts:
-            account_id = self.ynab.get_account_id(self.ynab_budget_id, ynab_account_name)
+            account_id = self.ynab.get_account_id(self.ynab_budget_id, account_name)
             is_paid = self.is_payment(account_id)
             if not is_paid:
                 due_accounts.append(account_name)
