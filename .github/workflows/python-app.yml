@@ -37,10 +37,10 @@ jobs:
         server_address: smtp.sendgrid.net
         server_port: 587
         username: 'apikey'
-        password: ${{secrets.SENDGRID_API_KEY}}
+        password: ${{ secrets.SENDGRID_API_KEY }}
 
         # Email details
         subject: file://subject.txt
         body: file://message.txt
-        to: SG.${{vars.email_address}}
-        from: SG.${{vars.email_address}}
+        to: SG.${{ vars.email_address }}
+        from: SG.${{ vars.email_address }}
