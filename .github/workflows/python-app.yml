@@ -2,8 +2,9 @@ name: YNAB Credit Alert
 
 on:
   schedule:
-    - cron: '35 22 1,11 * *'      # Runs at 00:00 UTC on the 1st and 15th of every month
-
+    - cron: '0 0 1,15 * *'      # Runs at 00:00 UTC on the 1st and 15th of every month
+  workflow_dispatch:  # Manual trigger
+  
 jobs:
   build:
     runs-on: ubuntu-latest
