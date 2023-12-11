@@ -53,6 +53,9 @@ class ynab_credit_alert():
             {due_accounts}
 
             Please make the payment to avoid the account becoming due.
+
+            Note: The way this works is that the code checks if a payment has been done, 
+                  so if there was no balance to pay off, it would trigger a false alert.
             
             Best regards,
             YNAB Credit Alert
