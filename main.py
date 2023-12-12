@@ -100,7 +100,7 @@ if __name__=="__main__":
     cut_off_days = os.environ.get('cut_off_days')
     smtp_server = os.environ.get('smtp_server')
     port = os.environ.get('port')
-    password = os.environ.get('password')
+    sendgrid_api_key = os.environ.get('sendgrid_api_key')
     from_address = os.environ.get('from_address')
     recipient = os.environ.get('recipient')
 
@@ -108,5 +108,5 @@ if __name__=="__main__":
     subject, body = a.check_accounts()
 
     username = 'apikey'
-    password = 'SG.' + password
+    password = 'SG.' + sendgrid_api_key
     a.send_email(smtp_server, port, username, password, from_address, recipient, subject, body)
