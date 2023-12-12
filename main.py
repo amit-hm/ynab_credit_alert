@@ -4,6 +4,8 @@ import textwrap
 
 from ynab import YNABClient
 from utils import setup_environment_vars, combine_names
+import smtplib
+from email.message import EmailMessage
 
 class ynab_credit_alert():
     def __init__(self, ynab_personal_access_token, ynab_budget_name, cut_off_days) -> None:
@@ -72,6 +74,21 @@ class ynab_credit_alert():
             """)
         return subject, message
 
+    def send_email(self, smtp_server, port, username, password, from_address, recipient, subject, body):
+        msg = EmailMessage()
+        msg.set_content(body)
+        msg['Subject'] = subject
+        msg['From'] = from_address
+        msg['To'] = recipient
+
+        try:
+            with smtplib.SMTP(smtp_server, port) as server:
+                server.starttls()  # Secure the connection
+                server.login(username, password)
+                server.send_message(msg)
+                print("Email sent successfully!")
+        except Exception as e:
+            print(f"Error sending email: {e}")
 
 if __name__=="__main__":
     # load environment variables from yaml file (locally)
@@ -81,12 +98,15 @@ if __name__=="__main__":
     ynab_budget_name = os.environ.get('ynab_budget_name')
     ynab_personal_access_token = os.environ.get('ynab_personal_access_token')
     cut_off_days = os.environ.get('cut_off_days')
+    smtp_server = os.environ.get('smtp_server')
+    port = os.environ.get('port')
+    password = os.environ.get('password')
+    from_address = os.environ.get('from_address')
+    recipient = os.environ.get('recipient')
 
     a = ynab_credit_alert(ynab_personal_access_token, ynab_budget_name, cut_off_days)
-    subject, message = a.check_accounts()
+    subject, body = a.check_accounts()
 
-    # write subject and message body to files
-    with open('subject.txt', 'w') as file:
-        file.write(subject)  
-    with open('message.txt', 'w') as file:
-        file.write(message)
+    username = 'apikey'
+    password = 'SG.' + password
+    a.send_email(smtp_server, port, username, password, from_address, recipient, subject, body)
