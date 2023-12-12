@@ -24,23 +24,12 @@ jobs:
 
     - name: Run main.py
       env:
-          ynab_personal_access_token: ${{ secrets.ynab_personal_access_token }}
-          ynab_budget_name: ${{ vars.ynab_budget_name }}
-          ynab_account_name: ${{ vars.ynab_account_name }}
-          cut_off_days: ${{ vars.cut_off_days }}
+          ynab_personal_access_token: ${{ secrets.YNAB_PERSONAL_ACCESS_TOKEN }}
+          sendgrid_api_key: ${{ vars.SENDGRID_API_KEY}}
+          ynab_budget_name: ${{ vars.YNAB_BUDGET_NAME }}
+          cut_off_days: ${{ vars.CUT_OFF_DAYS }}
+          from_address: ${{ vars.FROM_ADDRESS}}
+          port: ${{ vars.PORT }}
+          recipient: ${{ vars.RECIPIENT}}
+          smtp_server: ${{vars.SMTP_SERVER}}
       run: python main.py
-
-    - name: Send email
-      uses: dawidd6/action-send-mail@v3
-      with:
-        # SMTP server settings
-        server_address: smtp.sendgrid.net
-        server_port: 587
-        username: 'apikey'
-        password: ${{ secrets.SENDGRID_API_KEY }}
-
-        # Email details
-        subject: file://subject.txt
-        body: file://message.txt
-        to: ${{ vars.email_address }}
-        from: ${{ vars.FROM_NAME }}
