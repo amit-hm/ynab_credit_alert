@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
@@ -24,12 +24,12 @@ jobs:
 
     - name: Run main.py
       env:
-          ynab_personal_access_token: ${{ secrets.YNAB_PERSONAL_ACCESS_TOKEN }}
-          sendgrid_api_key: ${{ secrets.SENDGRID_API_KEY}}
-          ynab_budget_name: ${{ vars.YNAB_BUDGET_NAME }}
-          cut_off_days: ${{ vars.CUT_OFF_DAYS }}
-          from_address: ${{ vars.FROM_ADDRESS}}
-          port: ${{ vars.PORT }}
-          recipient: ${{ vars.RECIPIENT}}
-          smtp_server: ${{vars.SMTP_SERVER}}
+          YNAB_PERSONAL_ACCESS_TOKEN: ${{ secrets.YNAB_PERSONAL_ACCESS_TOKEN }}
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY}}
+          YNAB_BUDGET_NAME: ${{ vars.YNAB_BUDGET_NAME }}
+          CUT_OFF_DAYS: ${{ vars.CUT_OFF_DAYS }}
+          FROM_ADDRESS: ${{ vars.FROM_ADDRESS}}
+          PORT: ${{ vars.PORT }}
+          RECIPIENT: ${{ vars.RECIPIENT}}
+          SMTP_SERVER: ${{vars.SMTP_SERVER}}
       run: python main.py
