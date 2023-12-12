@@ -95,14 +95,14 @@ if __name__=="__main__":
     setup_environment_vars()
 
     # ynab creds
-    ynab_budget_name = os.environ.get('ynab_budget_name')
-    ynab_personal_access_token = os.environ.get('ynab_personal_access_token')
-    cut_off_days = os.environ.get('cut_off_days')
-    smtp_server = os.environ.get('smtp_server')
-    port = os.environ.get('port')
-    sendgrid_api_key = os.environ.get('sendgrid_api_key')
-    from_address = os.environ.get('from_address')
-    recipient = os.environ.get('recipient')
+    ynab_budget_name = os.environ.get('YNAB_BUDGET_NAME')
+    ynab_personal_access_token = os.environ.get('YNAB_PERSONAL_ACCESS_TOKEN')
+    cut_off_days = os.environ.get('CUT_OFF_DAYS')
+    smtp_server = os.environ.get('SMTP_SERVER')
+    port = os.environ.get('PORT')
+    sendgrid_api_key = os.environ.get('SENDGRID_API_KEY')
+    from_address = os.environ.get('FROM_ADDRESS')
+    recipient = os.environ.get('RECIPIENT')
 
     a = ynab_credit_alert(ynab_personal_access_token, ynab_budget_name, cut_off_days)
     subject, body = a.check_accounts()
